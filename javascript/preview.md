@@ -144,3 +144,7 @@ function say(course){
 - 作用域和闭包: http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html
 - promise源码参考: https://www.npmjs.com/package/xhr-promise
 - css和js属性支持: http://caniuse.com/
+
+####使用工具
+- 百度脑图 
+- 马克飞象 (markdown 可视工具) 
