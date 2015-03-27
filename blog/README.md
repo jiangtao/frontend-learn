@@ -1,4 +1,5 @@
 ---
+####express blog
 当前目录生成方法:
 ```bash
 cd ..
@@ -7,4 +8,5 @@ express blog
 # 使用ejs
 express -e blog
 ```
-express blog
+#### RESTFUL API 
+参考地址:http://coenraets.org/blog/2012/10/creating-a-rest-api-using-node-js-express-and-mongodb/
