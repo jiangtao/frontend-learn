@@ -38,6 +38,20 @@ Function.prototype.bind = function(ctx){
 ####闭包
 **闭包就是能够读取其他函数内部变量的函数**
 **在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁**
+// 经典的例子 [涉及到时间延迟的时候使用]
+```javascript
+for(var i = 0; i < 10; i++){
+	var ele = document.createElement('div');
+    ele.innerHTML = (i + 1);
+
+    (function(i){
+      ele.onclick = function(){
+        alert(i);
+      }
+    })(i);
+    document.body.appendChild(ele);
+}
+```
 
 ####原型继承
 object.create
