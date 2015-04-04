@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    function wait(duration){
+        return new Promise(function(resolve, reject){
+            setTimeout(resolve, duration);
+        });
+    }
+    function currying(){
+        var f = arguments[0];
+        var args = Array.prototype.slice.call(arguments,1);
+        return function(){
+            args.push.apply(args, arguments);
+            return f.apply(this, args);
+        }
+    }
+    function print(){
+        var n = 0;
+        Array.prototype.forEach.call(arguments,function(item){
+            n += item;
+        })
+        console.log(n)
+        return n;
+    }
+//    var sum = currying(print,1,2,3);
+//    sum(20)
+    var wait1s = currying(wait, 1000);
+    wait1s().then(function(){
+        console.log('1s之后干点啥')
+    })
+</script>
+</body>
+</html>
