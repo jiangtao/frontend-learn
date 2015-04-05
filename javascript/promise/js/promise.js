@@ -1,47 +1,56 @@
-/**
- * 处理异步中的成功和失败 并且保证流程按照顺序进行
- */
-var Promise = function(fn){
-    var chain = this.chain = {};
-    chain.state = 'pending';
-    chain.thenables = [];
-    if(typeof  fn == 'function'){
-        fn(this.resolve.bind(this), this.reject.bind(this));
+function Promise(fn){
+    this._status = Promise.PENDING;
+    this._onFulfilled = [];
+    this._onRejected = [];
+    var self = this;
+    var resolve = function(val){
+        self.resolve(val);
+    };
+    var reject = function(val){
+        self.reject(val);
+    };
+    if(typeof fn == 'function'){
+        fn(resolve, reject);
     }
 }
-/**
- *
- * @param resolveHandler [当前promise 成功处理方法]
- * @param rejectHandler [当前promise 失败处理方法]
- * @returns {promise} [下一个进行的操作的promise实例]
- */
-Promise.prototype.then = function(resolveHandler, rejectHandler){
-    var that = this;
+var prototype = Promise.prototype;
+prototype.then = function(resolve, reject){
     var promise = new Promise();
-    var thenable = {
-        onResolved: resolveHandler,
-        onRejected: rejectHandler,
-        promise: promise
-    }
-    that.thenables.push(thenable);
-    if(that.state != 'pending'){
-        
-    }
+    this._onFulfilled.push(function(val){
+        var result = resolve ? resolve(val) : val;
+        if(Promise.isPromise(result)){
+            result.then(function(val){
+                promise.resolve(val);
+            })
+        }else{
+            promise.resolve(result);
+        }
+    });
+    this._onRejected.push(function(val){
+        var result = reject ? reject(val) : val;
+        promise.reject(result);
+    })
     return promise;
 }
-
-// 起床 走路到车站 坐车  上课
-//var getUp = function(){};
-//getUp.then = function(resolve, reject){
-//    setTimeout(resolve, 20 * 60 * 1000);
-//};
-//var toStation = function(){};
-//toStation.then = function(resolve, reject){
-//    setTimeout(resolve, 10 * 60 * 1000);
-//};
-//var taskBus = function(){};
-//taskBus.then = function(resolve, reject){
-//    setTimeout(resolve, 30 * 60 * 1000);
-//};
-
-
+prototype.resolve = function(obj){
+    if(this._status == Promise.PENDING){
+        this._status = Promise.FULLFILLED;
+        for(var i = 0, len = this._onFulfilled.length; i < len; i++){
+            this._onFulfilled[i](obj);
+        }
+    }
+}
+prototype.reject = function(){
+    if(this._status == Promise.PENDING){
+        this._status = Promise.REJECTED;
+        for(var i = 0, len = this._onRejected.length; i < len; i++){
+            this._onRejected[i](obj);
+        }
+    }
+}
+Promise.PENDING = 0;
+Promise.FULLFILLED = 0;
+Promise.REJECTED = 0;
+Promise.isPromise = function(obj){
+    return obj instanceof Promise;
+}

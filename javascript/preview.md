@@ -32,7 +32,7 @@ Function.prototype.call(context, arg1,arg2,arg3,...argn);
 Function.prototype.bind(context, arg1,arg2,arg3,...argn);
 Function.prototype.bind = function(ctx){
 	var fn = this;
-	return function(ctx){
+	return function(){
 		fn.apply(ctx, arguments);
 	}
 }
@@ -99,6 +99,7 @@ Array.prototype.forEach = function(fn){
 **偏函数**
 
 什么是偏函数？
+
 假设有一个参数或变量已经预置的函数A，我们通过调用A来产生一个新的函数B，函数B就是我们说的偏函数
 
 ```
@@ -173,8 +174,8 @@ function say(course){
 
 	**异常处理**
 	
+	    
     	// 错误行为
-    	```
     	try{
     	    setTimeout(function(){
     	        var data = a/1; //错误的计算
@@ -182,9 +183,10 @@ function say(course){
     	}catch (e){
     		console.log(e);  // 捕获不到异常
     	}
-    	```
+   
+
     	// 正确
-    	```
+    	
     	setTimeout(function(){
     	    try{
     	        var data = a/1; //错误的计算
@@ -192,10 +194,10 @@ function say(course){
     	       console.log(e);
     	    }
     	},1000);
-    	```
+ 
 
     	// 无限的callback  (为了代码的优雅 用同步?)
-    	```
+    	
     	test1(function(v1){
     	  test2(funciton(v1,function(v2){
     	    test3(function(v2,fcuntion(v3){
@@ -205,13 +207,22 @@ function say(course){
     	    }));
     	  }));
     	});
-    	```
+    	
+    	
 - 异步编程解决方案
-	- **发布/订阅模式**
+	- **Events**
 
 	- **Promise**
 	
-	
+		- 说明
+			
+			then方法
+			1. 接受完成、错误状态的回调方法。再操作完成或错误时，调用对应的方法
+			2. then方法只接受function对象 其余对象将被忽略
+			3. then方法继续返回Promise对象,以实现链式调用
+			4. 可选择支持progress事件回调作为第三个方法
+			
+
 		流行的库和框架都有Promise的缩影：
 			- jquery
 			- angular
@@ -224,7 +235,9 @@ function say(course){
 			- Asnyc.js
 
 ####参考资料
-- 作用域和闭包:  http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html
+- 作用域和闭包:  http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html- 
+- promise理解: http://www.zhangxinxu.com/wordpress/2014/02/es6-javascript-promise-%E6%84%9F%E6%80%A7%E8%AE%A4%E7%9F%A5/comment-page-1/- 
+- when.js实现原理: http://www.w3ctech.com/topic/38- 
 - promise源码参考:  https://www.npmjs.com/package/xhr-promise
 - css和js属性支持:  http://caniuse.com/
 
