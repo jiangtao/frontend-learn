@@ -1,5 +1,5 @@
-function Promise(fn){
-    this._status = Promise.PENDING;
+function _Promise(fn){
+    this._status = _Promise.PENDING;
     this._onFulfilled = [];
     this._onRejected = [];
     var self = this;
@@ -13,12 +13,12 @@ function Promise(fn){
         fn(resolve, reject);
     }
 }
-var prototype = Promise.prototype;
+var prototype = _Promise.prototype;
 prototype.then = function(resolve, reject){
-    var promise = new Promise();
+    var promise = new _Promise();
     this._onFulfilled.push(function(val){
         var result = resolve ? resolve(val) : val;
-        if(Promise.isPromise(result)){
+        if(_Promise.isPromise(result)){
             result.then(function(val){
                 promise.resolve(val);
             })
@@ -29,28 +29,28 @@ prototype.then = function(resolve, reject){
     this._onRejected.push(function(val){
         var result = reject ? reject(val) : val;
         promise.reject(result);
-    })
+    });
     return promise;
 }
 prototype.resolve = function(obj){
-    if(this._status == Promise.PENDING){
-        this._status = Promise.FULLFILLED;
+    if(this._status == _Promise.PENDING){
+        this._status = _Promise.FULLFILLED;
         for(var i = 0, len = this._onFulfilled.length; i < len; i++){
             this._onFulfilled[i](obj);
         }
     }
 }
 prototype.reject = function(){
-    if(this._status == Promise.PENDING){
-        this._status = Promise.REJECTED;
+    if(this._status == _Promise.PENDING){
+        this._status = _Promise.REJECTED;
         for(var i = 0, len = this._onRejected.length; i < len; i++){
             this._onRejected[i](obj);
         }
     }
 }
-Promise.PENDING = 0;
-Promise.FULLFILLED = 0;
-Promise.REJECTED = 0;
-Promise.isPromise = function(obj){
-    return obj instanceof Promise;
+_Promise.PENDING = 0;
+_Promise.FULLFILLED = 0;
+_Promise.REJECTED = 0;
+_Promise.isPromise = function(obj){
+    return obj instanceof _Promise;
 }

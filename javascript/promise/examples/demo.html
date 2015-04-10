@@ -8,31 +8,10 @@
 <script>
     // es6 javascript promise
     var url = 'test/data.json';
-//    new Promise(function(resolve, reject) {
-//        var xhr = new XMLHttpRequest();
-//        xhr.open('GET', url, true);
-//        xhr.send(null);
-//        xhr.addEventListener('readystatechange', function(e){
-//            if(xhr.readyState === 4) {
-//                // success
-//                if(xhr.status === 200) {
-//                    resolve(xhr.responseText);
-//                } else {
-//                    // error
-//                    reject(xhr);
-//                }
-//            }
-//        })
-//    }).then(function(data){
-//        return JSON.parse(data);
-//    }).then(function(data){
-//        console.log(data.list);
-//    });
-//
-    var getAjax = get(url, {name: 'test'});
+    var getAjax = get(url);
     getAjax.then(function(data){
         console.log(data);
-    })
+    });
     function ajax(url, method, query, headers){
         return new Promise(function(resolve, reject){
             var xhr = new XMLHttpRequest();
