@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>测试promise</title>
+</head>
+<body>
+<script>
+    function _Promise(fn){
+        this._status = _Promise.PENDING;
+        this._onFulfilled = [];
+        this._onRejected = [];
+        var self = this;
+        var resolve = function(val){
+            self.resolve(val);
+        };
+        var reject = function(val){
+            self.reject(val);
+        };
+        if(typeof fn == 'function'){
+            fn(resolve, reject);
+        }
+    }
+    var prototype = _Promise.prototype;
+    prototype.then = function(resolve, reject){
+        var promise = new _Promise();
+        this._onFulfilled.push(function(val){
+            var result = resolve ? resolve(val) : val;
+            if(_Promise.isPromise(result)){
+                result.then(function(val){
+                    promise.resolve(val);
+                })
+            }else{
+                promise.resolve(result);
+            }
+        });
+        this._onRejected.push(function(val){
+            var result = reject ? reject(val) : val;
+            promise.reject(result);
+        });
+        return promise;
+    }
+    prototype.resolve = function(obj){
+        if(this._status == _Promise.PENDING){
+            this._status = _Promise.FULLFILLED;
+            for(var i = 0, len = this._onFulfilled.length; i < len; i++){
+                this._onFulfilled[i](obj);
+            }
+        }
+    }
+    prototype.reject = function(){
+        if(this._status == _Promise.PENDING){
+            this._status = _Promise.REJECTED;
+            for(var i = 0, len = this._onRejected.length; i < len; i++){
+                this._onRejected[i](obj);
+            }
+        }
+    }
+    _Promise.PENDING = 0;
+    _Promise.FULLFILLED = 0;
+    _Promise.REJECTED = 0;
+    _Promise.isPromise = function(obj){
+        return obj instanceof _Promise;
+    }
+
+    var url = '../test/data.json';
+    var getAjax = get(url);
+    setTimeout(function(){
+        console.log('run')
+        getAjax.then(function(data){
+            console.log(typeof data)
+            return JSON.parse(data);
+        }).then(function(data){
+            console.log(typeof data);
+        });
+    }, 1000)
+    function ajax(url, method, query, headers){
+        return new _Promise(function(resolve, reject){
+            var xhr = new XMLHttpRequest();
+            query = queryToString(query);
+            url = url + '?' + query;
+            xhr.open(method,url,true);
+            if(headers){
+                for(var k in headers){
+                    xhr.setRequestHeader(k, headers[k]);
+                }
+            }
+            xhr.onreadystatechange = function(){
+                if(this.readyState == '4'){
+                    if(String(this.status).match(/^2\d\d/)){
+                        resolve(this.responseText);
+                    }else{
+                        reject(xhr);
+                    }
+                }
+            }
+            xhr.send(null);
+        });
+    }
+    function get(url,query){
+        return ajax(url,'GET',query, null);
+    }
+    function queryToString(query){
+        var params = [];
+        for(var k in query){
+            params.push(encodeURIComponent(k) + '=' + encodeURIComponent(query[k]));
+        }
+        return params.join('&');
+    }
+    function post(url,query){
+        if(typeof query == 'object' && !(query instanceof String || (FormData && query instanceof  FormData))){
+            return ajax(url,'POST',query || null, {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+        }
+    }
+</script>
+</body>
+</html>
