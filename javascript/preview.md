@@ -213,15 +213,8 @@ function say(course){
 	- **Events**
 
 	- **Promise**
-	
-		- 说明
-			
-			then方法
-			1. 接受完成、错误状态的回调方法。再操作完成或错误时，调用对应的方法
-			2. then方法只接受function对象 其余对象将被忽略
-			3. then方法继续返回Promise对象,以实现链式调用
-			4. 可选择支持progress事件回调作为第三个方法
-			
+
+                    
 
 		流行的库和框架都有Promise的缩影：
 			- jquery
