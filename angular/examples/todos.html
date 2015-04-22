@@ -1,22 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="App">
 <head lang="en">
     <meta charset="UTF-8">
-    <title>angular实现todos</title>
+    <title>angular todos</title>
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1. user-scalable=no">
     <script src="../bower_components/angular/angular.min.js"></script>
+    <style>
+        ul{
+            padding: 0;
+        }
+        .list{
+            margin-top:15px;
+        }
+        .add{
+            margin-top:15px;
+        }
+        .explains{
+
+        }
+    </style>
 </head>
 <body>
-<div class="container-fluid">
-    <div class="beginner">
+<div class="container-fluid" ng-controller="todoController">
+    <div class="beginner clearfix">
         <h3 class="col-md-6">Angular Todo List</h3>
         <div class="col-md-6">
             <input type="text" class="col-md-4"/>
             <input type="button" class="btn btn-default" value="Search"/>
         </div>
     </div>
-    <input type="text"  autofocus="true" class="form-control input-lg" placeholder="input and enter to add one list">
+
+    <div class="explains">
+        <span class="btn btn-info">Up: Previous Task</span>
+        <span class="btn btn-primary">Down: Next Task</span>
+        <span class="btn btn-success">Backspace: Remove Task</span>
+    </div>
+    <div class="add">
+        <input type="text" autofocus="true" id="add-input" ng-keydown="add($event)" class="form-control input-lg" placeholder="input and enter to add one list"></div>
+    <ul class="list">
+        <li class="form-group" ng-repeat="item in list">
+            <input type="text" class="form-control" name="" ng-keydown="action($event, $index)" ng-model="item.content" placeholder="Empty Content" />
+        </li>
+    </ul>
 </div>
+<script src="js/todos.js"></script>
 </body>
 </html>
