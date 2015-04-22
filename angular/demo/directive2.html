@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="App">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>指令</title>
+    <script src="../bower_components/angular/angular.js"></script>
+</head>
+<body>
+<div class="container" ng-controller="Controller">
+
+    <div anchor-custom anchor-url="http://www.111.com" anchor-attr="http://www.baidu.com" anchor-text="baidu"></div>
+    <div class="anchor-custom" anchor-url="http://google.com" anchor-text="google">
+        {{name}}
+    </div>
+
+</div>
+<script>
+
+    angular.module('App', [])
+            .controller('Controller', function($scope){
+                $scope.name = 'my controller name'
+            })
+            // P51
+            // 指令有自己的$scope
+            .directive('anchorCustom', function () {
+                return {
+                    scope: {
+                        anchorUrl: '@anchorAttr', // anchorAttr replace anchorUrl
+                        anchorText: '@'
+                    },
+                    restrict: 'EAC', // attribute class element
+                    // templateUrl: 'templates/layout.html'
+                    template: '<a href="{{anchorUrl}}">{{anchorText}}</a>',
+                    // replace: true // true 完全替代
+                }
+            });
+
+
+</script>
+</body>
+</html>
