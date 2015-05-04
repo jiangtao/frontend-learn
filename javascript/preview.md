@@ -31,9 +31,14 @@ Function.prototype.call(context, arg1,arg2,arg3,...argn);
 ```
 Function.prototype.bind(context, arg1,arg2,arg3,...argn);
 Function.prototype.bind = function(ctx){
+	var SLICE = Array.prototype.slice;
+	if(typeof this !== 'function'){
+		throw new TypeError('Function instance can not be by other type');
+	}
+	var args = SLICE.apply(arguments,1);
 	var fn = this;
 	return function(){
-		fn.apply(ctx, arguments);
+		fn.apply(ctx, args.concat(SLICE.apply(arguments)));
 	}
 }
 ```
