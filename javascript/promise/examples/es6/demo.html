@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Promise demo</title>
+</head>
+<body>
+<script>
+    // es6 javascript promise
+    var url = 'test/data.json';
+    var getAjax = get(url);
+    getAjax.then(function(data){
+        console.log(data);
+    });
+    function ajax(url, method, query, headers){
+        return new Promise(function(resolve, reject){
+            var xhr = new XMLHttpRequest();
+            query = queryToString(query);
+            url = url + '?' + query;
+            xhr.open(method,url,true);
+            if(headers){
+                for(var k in headers){
+                    xhr.setRequestHeader(k, headers[k]);
+                }
+                xhr.onreadystatechange = function(){
+                    if(this.readyState == '4'){
+                        if(String(this.status).match(/^2\d\d/)){
+                            resolve(this.responseText);
+                        }else{
+                            reject(xhr);
+                        }
+                    }
+                }
+            }
+            xhr.send(null);
+        });
+    }
+    function get(url,query){
+        return ajax(url,'GET',query, null);
+    }
+    function queryToString(query){
+        var params = [];
+        for(var k in query){
+            params.push(encodeURIComponent(k) + '=' + encodeURIComponent(query[k]));
+        }
+        return params.join('&');
+    }
+    function post(url,query){
+        if(typeof query == 'object' && !(query instanceof String || (FormData && query instanceof  FormData))){
+            return ajax(url,'POST',query || null, {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+        }
+    }
+</script>
+</body>
+</html>

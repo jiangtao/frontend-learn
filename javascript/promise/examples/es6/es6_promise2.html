@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    var wait = function(duration){
+        return new Promise(function(resolve, reject){
+            setTimeout(resolve, duration);
+        });
+    }
+    var now = Date.now();
+    wait(1000).then(function(){
+        console.log('1s后');
+        console.log(Date.now() - now);
+        now = Date.now();
+        return wait(2000);
+    }).then(function(){
+        console.log(Date.now() - now);
+        console.log('2s')
+        return '111'
+    }).then(function(v){
+        console.log(v)
+    });
+</script>
+</body>
+</html>

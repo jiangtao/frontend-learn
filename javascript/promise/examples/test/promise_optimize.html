@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>测试promise</title>
+</head>
+<body>
+<script>
+    // 仔细读when.js介绍源码
+    // 对外接口
+    function _Promise(affair){
+        this._state = _Promise.PENDING;
+        this._affairs = [];
+        this.affair = affair || function(o){return o;};
+        this._data = null;
+    };
+    // Defer对内接口
+    function _Defered(){
+        this.promise = new _Promise();
+    }
+    _Defered.prototype = {
+        constructor: _Defered,
+        resolve: function(data){
+            _this._callback(data, 'resolve');
+        },
+        reject: function(data){
+            _this._callback(data, 'reject');
+        },
+        _callback: function(data, state){
+            var promise = this.promise;
+            var stateObj = {
+                'resolve': 'RESOLVED',
+                'reject': 'REJECTED'
+            }
+            if(promise._state != _Promise.PENDING){
+                return;
+            }
+            promise._state = _Promise[stateObj[state]];
+            promise._data = data;
+            promise._affairs.forEach(function(item){
+                if(typeof item[state] == 'function'){
+                    item[state](data);
+                }
+            })
+        }
+    }
+    _Promise.prototype = {
+        construcotr: _Promise,
+        then: function(resolve, reject){
+            var defer = new _Defered();
+        },
+        other: function(){
+
+        }
+    }
+
+    _Promise.PENDING = 0;
+    _Promise.RESOLVED = 1;
+    _Promise.REJECTED = 2;
+    var url = '../test/data.json';
+    var getAjax = get(url);
+    setTimeout(function(){
+        console.log('run')
+        getAjax.then(function(data){
+            console.log(typeof data)
+            return JSON.parse(data);
+        }).then(function(data){
+            console.log(typeof data);
+        });
+    }, 1000)
+    function ajax(url, method, query, headers){
+        return new _Promise(function(resolve, reject){
+            var xhr = new XMLHttpRequest();
+            query = queryToString(query);
+            url = url + '?' + query;
+            xhr.open(method,url,true);
+            if(headers){
+                for(var k in headers){
+                    xhr.setRequestHeader(k, headers[k]);
+                }
+            }
+            xhr.onreadystatechange = function(){
+                if(this.readyState == '4'){
+                    if(String(this.status).match(/^2\d\d/)){
+                        resolve(this.responseText);
+                    }else{
+                        reject(xhr);
+                    }
+                }
+            }
+            xhr.send(null);
+        });
+    }
+    function get(url,query){
+        return ajax(url,'GET',query, null);
+    }
+    function queryToString(query){
+        var params = [];
+        for(var k in query){
+            params.push(encodeURIComponent(k) + '=' + encodeURIComponent(query[k]));
+        }
+        return params.join('&');
+    }
+    function post(url,query){
+        if(typeof query == 'object' && !(query instanceof String || (FormData && query instanceof  FormData))){
+            return ajax(url,'POST',query || null, {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+        }
+    }
+</script>
+</body>
+</html>
