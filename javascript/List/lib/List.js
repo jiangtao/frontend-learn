@@ -30,8 +30,8 @@ var List = function (options) {
 
 var prototype = List.prototype;
 prototype.indexOf = function (item) {
-    for (var i = 0; i < this.length; i++) {
-        if (this.list[i] === item) {
+    for (var i = 0; i < this.length(); i++) {
+        if (this.list[i] == item) {
             return i;
         }
     }
@@ -42,7 +42,7 @@ prototype.push = function (item) {
         return false;
     }
     this.list[this.listSize++] = item;
-    this.delegate.onPush(this, item);
+    this.delegate.onPush(this, item, this.indexOf(item));
 };
 prototype.pop = function () {
     var item = this.list.pop();
@@ -66,6 +66,7 @@ prototype.remove = function (i) {
     var item = this.list[i];
     if (item) {
         this.list.splice(i, 1);
+        this.listSize--;
         this.delegate.onRemoved(this, item, i);
         return true;
     }

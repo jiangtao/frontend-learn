@@ -59,17 +59,22 @@
             },
             onInserted: function (context, item) {
             },
-            onPush: function (context, item) {
-                var oLi = document.createElement('li');
-                var html = '<strong>' + item.name + '</strong><em>' + item.price + '</em><a>remove</a>';
-                oLi.innerHTML = html;
-                oList.appendChild(oLi);
+            onPush: function (context, item, index) {
+//                var oLi = document.createElement('li');
+//                var html = '<span>' + index + '</span><strong>' + item.name + '</strong><em>' + item.price + '</em><a>remove</a>';
+//                oLi.innerHTML = html;
+//                oList.appendChild(oLi);
+                redraw();
             },
             onPop: function (context, item) {
             },
             onRemoved: function (context, item, index) {
-                var oListItems = oList.querySelectorAll('li');
-                oList.removeChild(oListItems[index]);
+//                var oListItems = oList.querySelectorAll('li');
+//                oList.removeChild(oListItems[index]);
+//                for (var i = index; i < list.length(); i++) {
+//                    oListItems[i].querySelector('span').innerHTML = i - 1;
+//                }
+                redraw();
             },
             onSelected: function (context, item) {
             }
@@ -87,6 +92,17 @@
     var list = new List({
         delegate: delegate()
     });
+    var redraw = function () {
+        oList.innerHTML = '';
+        var html = '';
+        for (var i = 0; i < list.length(); i++) {
+            var oLi = document.createElement('li');
+            var item = list.getItem(i);
+            html += '<li><span>' + i + '</span><strong>' + item.name + '</strong><em>' + item.price + '</em><a>remove</a></li>';
+
+        }
+        oList.innerHTML = html;
+    };
     oAdd.addEventListener('click', function (e) {
         var success = list.push({
             name: oName.value.trim(),
