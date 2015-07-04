@@ -1,4 +1,4 @@
-var List = require('../List');
+var List = require('../lib/List');
 var delegate = function () {
     var _this = this;
     return {

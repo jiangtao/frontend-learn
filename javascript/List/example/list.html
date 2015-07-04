@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>List demo</title>
+    <script src="../lib/List.js"></script>
+    <style>
+        body, ul, li {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-size: 14px;
+        }
+
+        strong {
+            font-size: 16px;
+            padding: 3px 10px;
+            display: inline-block;
+            width: 100px
+        }
+
+        em {
+            font-size: 12px;
+            display: inline-block;
+            padding: 3px 5px;
+            width: 20px;
+        }
+
+        a {
+            font-size: 14px;
+            color: #111;
+            display: inline-block;
+            padding: 3px 5px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<input type="text" name="name" placeholder="Name"/>
+<input type="number" name="price" placeholder="Price"/>
+<input type="button" name="add" value="Add"/>
+<ul id="list">
+
+</ul>
+<script>
+    var oList = document.querySelector('#list');
+    var oAdd = document.querySelector('input[name=add]');
+    var oName = document.querySelector('input[name=name]');
+    var oPrice = document.querySelector('input[name=price]');
+    var delegate = function () {
+        return {
+            canAdd: function (context, item) {
+                return item.name.length > 0 && typeof item.price == 'number' && item.price > 0;
+            },
+            onUpdate: function (context, item, newItem) {
+            },
+            onInserted: function (context, item) {
+            },
+            onPush: function (context, item) {
+                var oLi = document.createElement('li');
+                var html = '<strong>' + item.name + '</strong><em>' + item.price + '</em><a>remove</a>';
+                oLi.innerHTML = html;
+                oList.appendChild(oLi);
+            },
+            onPop: function (context, item) {
+            },
+            onRemoved: function (context, item, index) {
+                var oListItems = oList.querySelectorAll('li');
+                oList.removeChild(oListItems[index]);
+            },
+            onSelected: function (context, item) {
+            }
+        };
+    };
+    var getElementIndex = function (list, element) {
+        for (var i in list) {
+            if (list[i] == element) {
+                return i;
+            }
+        }
+        return -1;
+    };
+
+    var list = new List({
+        delegate: delegate()
+    });
+    oAdd.addEventListener('click', function (e) {
+        var success = list.push({
+            name: oName.value.trim(),
+            price: Number(oPrice.value.trim())
+        });
+    });
+    oList.addEventListener('click', function (e) {
+        var oListItems = oList.querySelectorAll('li');
+        e.preventDefault();
+        console.log(e.target)
+        if (e.target.innerHTML == 'remove') {
+            var index = getElementIndex(oListItems, e.target.parentNode);
+            list.remove(index);
+        }
+    });
+
+
+</script>
+</body>
+</html>

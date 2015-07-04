@@ -1,6 +1,9 @@
 'use strict';
 
 var checkDeleteFunction = function (delegate) {
+    var optionalList = [
+        'canAdd'
+    ];
     var checkList = [
         'onUpdate',
         'onInserted',
@@ -35,6 +38,9 @@ prototype.indexOf = function (item) {
     return -1;
 };
 prototype.push = function (item) {
+    if (!this.delegate.canAdd(this, item)) {
+        return false;
+    }
     this.list[this.listSize++] = item;
     this.delegate.onPush(this, item);
 };
@@ -46,6 +52,9 @@ prototype.pop = function () {
 prototype.insert = function (insertItem, afterItem) {
     var index = this.indexOf(afterItem);
     if (index > -1) {
+        if (!this.delegate.canAdd(this, item)) {
+            return null;
+        }
         this.list.splice(index + 1, 0, insertItem);
         this.listSize--;
         this.delegate.onInserted(this, insertItem);
@@ -53,11 +62,11 @@ prototype.insert = function (insertItem, afterItem) {
     }
     return false;
 };
-prototype.remove = function (item) {
-    var index = this.indexOf(item);
-    if (index > -1) {
-        this.list.splice(index, 1);
-        this.delegate.onRemoved(this, item);
+prototype.remove = function (i) {
+    var item = this.list[i];
+    if (item) {
+        this.list.splice(i, 1);
+        this.delegate.onRemoved(this, item, i);
         return true;
     }
     return false;
@@ -89,6 +98,10 @@ prototype.first = function () {
 prototype.end = function () {
     return this.getItem(this.length - 1);
 };
+prototype.next = function () {
+};
+prototype.prev = function () {
+};
 prototype.print = function () {
     for (var i in this.list) {
         console.log(i, this.list[i]);
@@ -108,4 +121,15 @@ prototype.length = function () {
     return this.listSize;
 };
 
-module.exports = List;
+(function (root, factory) {
+    if (typeof module != 'undefined' && module.exports == root) {
+        module.exports = factory;
+    } else if (typeof define != 'undefined' && typeof define.amd == 'function') {
+        define(function () {
+            return factory
+        });
+    } else {
+        root[factory.name] = factory;
+    }
+
+})(this, List);
