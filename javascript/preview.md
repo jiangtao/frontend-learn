@@ -1,5 +1,5 @@
-@(2015)[Javascript,珠峰]
-###Javascript 4期	
+
+###Javascript
 > Javascript是一种`原型`语言，`弱类型`语言
 
 ####对象和数组
