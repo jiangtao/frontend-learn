@@ -1,16 +1,48 @@
-###Javascript	
+@(2015)[Javascript,珠峰]
+###Javascript 4期	
+> Javascript是一种`原型`语言，`弱类型`语言
+
+####对象和数组
+**对象:** `无顺序`
+
+**数组:** `有顺序`
+
+####列表 
+列表: `抽象数据模型` `Abstract Data Type`
+**为什么要抽象出这种数据类型？** 
+实例： 书籍列表， 电影列表，成员列表，购物清单列表，待办事项列表 等等
+共性？
+
+例子：群成员列表模拟（server）,  购物车模拟（broswer）
+
+**补充:** `事件处理`
+
+参考资料：http://segmentfault.com/q/1010000000130046 
+
 ---
+
+####队列
+> 队列是只允许在一端进行插入操作，另一个进行删除操作的线性表，队列是一种先进先出（First-In-First-Out，FIFO）的数据结构
+
+操作: `入队` `出队` 
+
+例子: 配对分配
+
+---
+
 ####作用域
 可以理解为范围和圈子:
+
 张三在A互联网公司当FE，李四在B互联公司当PM
+
 从大到小： 互联网圈子 , 程序员圈子，产品圈子，个人圈子
 - Client:  Window 
 - Node:   global  exports 
-- 总结：
-   **在顶级作用域中不能访问下一级作用域里的变量，但下一级作用域中可以访问上一级作用域中的变量**
+ >   **在顶级作用域中不能访问下一级作用域里的变量，但下一级作用域中可以访问上一级作用域中的变量**
    **在顶级的圈子活动时能同时找到张三, 李四,但在FE的圈子里面找不到李四**
+   
 ####this
-
+> 框架和库中的this，可能经过包装或相应的处理，建议去google搜索或查阅文档
 ####apply bind call
 
 **apply**
@@ -42,15 +74,11 @@ Function.prototype.bind = function(ctx){
 	}
 }
 ```
-####对象
-**引用类型**
-// extend.js
 ####闭包
-**闭包就是能够读取其他函数内部变量的函数**
-
+>**闭包就是能够读取其他函数内部变量的函数**
 **在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁**
 
-// 经典的例子
+**Example**:
 
 ```
 for(var i = 0; i < 10; i++){
@@ -65,10 +93,9 @@ for(var i = 0; i < 10; i++){
     document.body.appendChild(ele);
 }
 ```
-
 ####原型继承
 
-//参考inherit Events模块
+参考inherit Events模块
 
 http://www.crimx.com/2014/07/27/javascript-inheritance/
 
@@ -102,7 +129,6 @@ Array.prototype.forEach = function(fn){
 
 ```
 **偏函数**
-
 什么是偏函数？
 
 假设有一个参数或变量已经预置的函数A，我们通过调用A来产生一个新的函数B，函数B就是我们说的偏函数
@@ -133,8 +159,7 @@ function currying(){
 ```
 
 
-***总结和对比***
-
+**总结和对比**
 高阶函数和偏函数是异步编程的基础，熟练运用高阶函数和偏函数是非常必要的。
 
 **高阶函数**
@@ -170,7 +195,7 @@ function say(course){
     - Dom Ready
     - Events
     - requestAnimationFrame
-    - 请让我静静想一下,还有木有其他的!!
+    - 其他
 
 - Node中的异步
     - 流操作 ( file, http, stream, db )
@@ -179,7 +204,7 @@ function say(course){
 
 	**异常处理**
 	
-	    
+	```
     	// 错误行为
     	try{
     	    setTimeout(function(){
@@ -212,31 +237,26 @@ function say(course){
     	    }));
     	  }));
     	});
-    	
-    	
+  ```
 - 异步编程解决方案
 	- **Events**
-
 	- **Promise**
-
-                    
-
-		流行的库和框架都有Promise的缩影：
-			- jquery
-			- angular
-			- Dojo
-		Promise库
-			- Q.js
-			- When.js
-			
-		其他流程控制库
-			- Asnyc.js
+	- **合理的设计**
+	
+	ES6中的promise             
+	流行的库和框架都有Promise的缩影：
+		- jquery 
+		- angular ( $q )
+	
+	Promise库
+		- Q.js
+		- When.js
+		
+	其他流程控制库
+		- Asnyc.js
 
 ####参考资料
-- 作用域和闭包:  http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html- 
-- promise理解: http://www.zhangxinxu.com/wordpress/2014/02/es6-javascript-promise-%E6%84%9F%E6%80%A7%E8%AE%A4%E7%9F%A5/comment-page-1/- 
-- when.js实现原理: http://www.w3ctech.com/topic/38- 
-- promise源码参考:  https://www.npmjs.com/package/xhr-promise
-- css和js属性支持:  http://caniuse.com/
-
+> - 作用域和闭包: http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html- 
+>- promise理解: http://www.zhangxinxu.com/wordpress/2014/02/es6-javascript-promise-%E6%84%9F%E6%80%A7%E8%AE%A4%E7%9F%A5/comment-page-1/- 
+>- when.js实现原理: http://www.w3ctech.com/topic/38
 

@@ -20,10 +20,8 @@ var Queue = function (options) {
 };
 
 var prototype = Queue.prototype;
-prototype.init = function () {
-};
 prototype.indexOf = function (item) {
-    for (var i = 0; i < this.length; i++) {
+    for (var i = 0; i < this.length(); i++) {
         if (this.queue[i] === item) {
             return i;
         }
@@ -34,15 +32,15 @@ prototype.push = function (item) {
     this.queue.push(item);
     this.delegate.onPush(this, item);
 };
-prototype.pop = function () {
-    var item = this.queue.pop();
+prototype.shift = function () {
+    var item = this.queue.shift();
     this.delegate.onPop(this, item);
 };
 prototype.first = function () {
     return this.getItem(0);
 };
 prototype.end = function () {
-    return this.getItem(this.length - 1);
+    return this.getItem(this.length() - 1);
 };
 prototype.print = function () {
     for (var i in this.queue) {
@@ -53,7 +51,7 @@ prototype.empty = function () {
     this.queue = [];
 };
 prototype.isEmpty = function () {
-    return this.length === 0;
+    return this.length() === 0;
 };
 prototype.length = function () {
     return this.queue.length;
