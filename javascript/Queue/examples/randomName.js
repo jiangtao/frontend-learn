@@ -16,4 +16,4 @@ var generateNameList = function () {
     }
     return list;
 };
-module.exports = generateNameList();
+module.exports = generateNameList;

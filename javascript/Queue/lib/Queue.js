@@ -3,7 +3,7 @@
 var checkDeleteFunction = function (delegate) {
     var checkQueue = [
         'onPush',
-        'onPop'
+        'onShift'
     ];
     for (var i = 0, len = checkQueue.length; i < len; i++) {
         var func = checkQueue[i];
@@ -16,6 +16,7 @@ var checkDeleteFunction = function (delegate) {
 var Queue = function (options) {
     this.queue = [];
     this.delegate = options.delegate;
+    this.namespace = options.namespace; // 这里传入namespace的目的是为了 给事件用的 在jquery里面事件可以加namespace
     checkDeleteFunction(this.delegate);
 };
 
@@ -34,7 +35,8 @@ prototype.push = function (item) {
 };
 prototype.shift = function () {
     var item = this.queue.shift();
-    this.delegate.onPop(this, item);
+    this.delegate.onShift(this, item);
+    return item;
 };
 prototype.first = function () {
     return this.getItem(0);
@@ -56,16 +58,11 @@ prototype.isEmpty = function () {
 prototype.length = function () {
     return this.queue.length;
 };
+prototype.display = function(){
+    return this.queue;
+};
+prototype.print = function () {
 
-(function (root, factory) {
-    if (root == module.exports) {
-        module.exports = factory;
-    } else if (define && define.amd) {
-        define(function () {
-            return factory
-        });
-    } else {
-        root[factory.name] = factory;
-    }
+};
 
-})(this, Queue);
+module.exports = Queue;
