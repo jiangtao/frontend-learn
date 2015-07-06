@@ -16,7 +16,7 @@ var maleQueue = new Queue({
 });
 var femaleQueue = new Queue({
     delegate: delegate.apply(this),
-    namespace: 'male'
+    namespace: 'female'
 });
 // 格式化data的数据为数组
 var nameList = nameContent.split('\n');
