@@ -112,4 +112,4 @@
 > - 涉及到存储操作
 
 **参考资料:**
-(使用Promise组织Javascript代码)[https://gist.github.com/jtHwong/4c5a38a8223695f33219]
+[使用Promise组织Javascript代码](https://gist.github.com/jtHwong/4c5a38a8223695f33219)
