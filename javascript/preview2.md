@@ -110,3 +110,6 @@
 > - 使用promise组织异步代码
 > - 使用队列保证数据上传正常，数据不丢失
 > - 涉及到存储操作
+
+**参考资料:**
+(使用Promise组织Javascript代码)[https://gist.github.com/jtHwong/4c5a38a8223695f33219]
