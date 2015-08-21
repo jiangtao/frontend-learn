@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>客户端使用promise做组件操作</title>
+</head>
+<body>
+<button id="confirm">提交</button>
+<button id="cancel">取消</button>
+<script>
+    var dialog = createDialog('confirm', 'cancel');
+    dialog
+            .then(
+                function () {
+                    console.log('comfirmed');
+                    return 'success'
+                }, function () {
+                    console.log('canceled');
+                    return 'failed';
+                }
+            )
+            .then(
+                function (data) {
+                    console.log(data);
+                }, function (data) {
+                    console.log(data);
+                }
+            );
+    function createDialog(confirmId, cancelId) {
+        var confirm = document.querySelector('#' + confirmId);
+        var cancel = document.querySelector('#' + cancelId);
+        return new Promise(function (resolve, reject) {
+            confirm.addEventListener('click', function (e) {
+                e.preventDefault();
+                resolve();
+            }, false);
+            cancel.addEventListener('click', function (e) {
+                e.preventDefault();
+                reject();
+            }, false);
+        })
+    }
+    function ajax(url, method, query, headers) {
+        return new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            query = queryToString(query);
+            url = url + '?' + query;
+            xhr.open(method, url, true);
+            if (headers) {
+                for (var k in headers) {
+                    xhr.setRequestHeader(k, headers[k]);
+                }
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == '4') {
+                        if (String(this.status).match(/^2\d\d/)) {
+                            resolve(this.responseText);
+                        } else {
+                            reject(xhr);
+                        }
+                    }
+                }
+            }
+            xhr.send(null);
+        });
+    }
+    function get(url, query) {
+        return ajax(url, 'GET', query, null);
+    }
+    function queryToString(query) {
+        var params = [];
+        for (var k in query) {
+            params.push(encodeURIComponent(k) + '=' + encodeURIComponent(query[k]));
+        }
+        return params.join('&');
+    }
+    function post(url, query) {
+        if (typeof query == 'object' && !(query instanceof String || (FormData && query instanceof  FormData))) {
+            return ajax(url, 'POST', query || null, {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+        }
+    }
+</script>
+</body>
+</html>
