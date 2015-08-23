@@ -7,6 +7,7 @@ var REDUCE      = Array.prototype.reduce;
 var REDUCERIGHT = Array.prototype.reduceRight;
 var LASTINDEXOF = Array.prototype.lastindexof;
 var INDEXOF     = Array.prototype.indexof;
+
 if (!FOREACH) {
 	Array.prototype.foreach = function(fn, context) {
 		if (typeof fn === 'function') {
