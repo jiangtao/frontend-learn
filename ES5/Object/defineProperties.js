@@ -5,7 +5,7 @@ Object.defineProperties(obj, {
         set : function(v){
             console.log(this, 'v', 'setted');
         },
-        get: function(){
+        get : function(){
             return 'javascript';
         }
     },
@@ -21,16 +21,16 @@ Object.defineProperties(obj, {
     'students' : {
         value : [
             {
-                name: 'st1',
-                age: 23
+                name : 'st1',
+                age  : 23
             },
             {
-                name: 'st2',
-                age: 24
+                name : 'st2',
+                age  : 24
             },
             {
-                name: 'st3',
-                age: 25
+                name : 'st3',
+                age  : 25
             }
         ],
         configurable : true,
