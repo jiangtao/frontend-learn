@@ -1,25 +1,25 @@
 'use strict';
 var obj = {};
 Object.defineProperties(obj, {
-    'language': {
-        set: function(v){
+    'language' : {
+        set : function(v){
             console.log(this, 'v', 'setted');
         },
         get: function(){
             return 'javascript';
         }
     },
-    'teacher': {
-        value: {
-            name: 'zhangsan',
-            age: 32
+    'teacher' : {
+        value : {
+            name : 'zhangsan',
+            age  : 32
         } ,
-        configurable: false,
-        writable: false,
-        enumerable: true
+        configurable : false,
+        writable     : false,
+        enumerable   : true
     },
-    'students': {
-        value: [
+    'students' : {
+        value : [
             {
                 name: 'st1',
                 age: 23
@@ -33,9 +33,9 @@ Object.defineProperties(obj, {
                 age: 25
             }
         ],
-        configurable: true,
-        writable: true,
-        enumerable: true
+        configurable : true,
+        writable     : true,
+        enumerable   : true
     }
 });
 console.log(obj);
