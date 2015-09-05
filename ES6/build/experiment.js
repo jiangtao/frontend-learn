@@ -29,5 +29,17 @@ var object = `
 // 变量赋值
 var [a,b,c = 1] = ['a', 'b', 'c']
 var {name: name, age: age, info: {sex: sex}} = getUserInfo()
-var fn = ( ({info: info} ) => 
+// 函数内部变量设置 
+// XXX: 当想Fn返回info的时候 报错
+var fn = ( ({info: _info} ) => 
 	console.log(info)) 
+
+var func = function(a,b=10){
+	return a + b
+}
+// 参数传递
+// 默认参数设置初始值
+var funcTest = (a,b=10) => a+b
+var funcMoreAguments = (x, ...y) => x * y.length
+// 传递个数组来作为参数
+var funcArrayArgs = (a, b) => b.concat(a)
