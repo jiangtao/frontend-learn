@@ -10,28 +10,28 @@ var extend = function(origin, copy){
 var userModel = {
     list: [
         {
-            role:'amdin',
+            role:     'amdin',
             username: 'admin',
-            name: '江涛',
-            salary: 1000
+            name:     '江涛',
+            salary:   1000
         },
         {
-            role:'worker',
+            role:     'worker',
             username: 'zhangsan',
-            name: '张三',
-            salary: 500
+            name:     '张三',
+            salary:   500
         },
         {
-            role:'worker',
+            role:     'worker',
             username: 'lisi',
-            name: '李四',
-            salary: 500
+            name:     '李四',
+            salary:   500
         },
         {
-            role:'worker',
+            role:     'worker',
             username: 'wangwu',
-            name: '王五',
-            salary: 500
+            name:     '王五',
+            salary:   500
         }
     ],
     isWorker: function(user){
