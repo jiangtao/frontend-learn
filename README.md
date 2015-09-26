@@ -3,7 +3,7 @@
 
 1.reactjs学习
 
-> 后续工作以及div.li开发会用到，整理相关的笔记和资料
+> 后续工作以及[div.li](https://github.com/div-li/officialwebsite)开发会用到，整理相关的笔记和资料
 
 2.ES6使用到项目中
 > 尝试ES6开发项目，在项目之间找到平衡
