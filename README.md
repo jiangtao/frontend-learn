@@ -18,4 +18,6 @@
 
 5.移动端方面学习和深入
 
+> 开始用移动端做一些实践东西
+
 联系我:[321jiangtao@gmail.com](mailto:321jiangtao@gmail.com)
