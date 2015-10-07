@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>test SRI</title>
+</head>
+<body>
+
+<script crossorigin="anonymous" integrity="sha256-b/TAR5GfYbbQ3gWQCA3fxESsvgU4AbP4rZ+qu1d9CuQ="
+        src="https://imququ.com/static/js/other/zepto.js"></script>
+<script>
+    // generate integrity: curl https://imququ.com/static/js/other/zepto.js | openssl dgst -sha256 -binary | openssl enc -base64 -A
+    console.log($)
+</script>
+</body>
+</html>

@@ -1,13 +1,3 @@
+1. 算法的练习和学习
 
-###前端笔记和代码
-
-1.reactjs学习
-
-2.ES6使用到项目中
-
-3.web安全方面
-
-4.算法学习和动画提升 
-
-5.移动端方面学习和深入
-
+>   1. [点在小球上运动dom版](http://codepen.io/coderjiangtao/pen/ZbKwdy)
