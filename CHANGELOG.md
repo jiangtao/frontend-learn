@@ -1,3 +1,4 @@
 - 算法的练习和学习
 
-> - [点在小球上运动dom版](http://codepen.io/coderjiangtao/pen/ZbKwdy)
+> - [圆周运动 - 三角函数](http://codepen.io/coderjiangtao/pen/OymdEe)
+> - [圆周运动 - css3](http://codepen.io/coderjiangtao/pen/ZbKwdy)
