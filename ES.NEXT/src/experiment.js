@@ -20,6 +20,7 @@ var object = {
 */
 // template String
 var name = 'jiangtao';
+var age = 10;
 var str = `hello ${name}`; // 使用``做字符串代替传统的字符串相加
 var object = `
 	name: 'jiangtao'
