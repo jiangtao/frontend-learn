@@ -5,3 +5,7 @@ babel6中 await async需要添加babel-polyfill来做兼容处理,
 所以使用webpack require不存在的问题
 
 在NodeJS中可直接使用
+
+参考文献:
+- [http://jamesknelson.com/using-es6-in-the-browser-with-babel-6-and-webpack/](Using ES6 and ES7 in the Browser, with 
+Babel 6 and Webpack)

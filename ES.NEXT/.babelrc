@@ -1,1 +1,4 @@
-.babelrc_example
+{
+   "presets": ["es2015", "stage-0"],
+   "plugins": ["syntax-async-functions","syntax-async-generators" ]
+}

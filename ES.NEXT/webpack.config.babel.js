@@ -33,22 +33,23 @@ let webpackConfig = {
         loaders: [{
             test: /\.jsx?$/,
             exclude: [node_modules],
-            loader: 'babel',
+            loader: 'babel-loader',
             query: {
-                  "presets": ["es2015", "react"]
+                plugins: ['transform-runtime'],
+                presets: ['es2015', 'stage-0', 'react']
             }
         }, {
             test: /\.css$/,
             loader: ExtractTextPlugin.extract("style-loader", "css-loader")
         }, {
             test: /\.s(a|c)ss$/,
-            loader: 'style!css!sass',
+            loader: 'style!css!sass'
         }, {
             test: /\.less$/,
-            loader: 'style!css!less',
+            loader: 'style!css!less'
         }, {
             test: /\.(png|jpe?g)$/,
-            loader: 'url?limit=30000',
+            loader: 'url?limit=30000'
         }, {
             test: /\.woff$/,
             loader: 'url?limit=10240'
