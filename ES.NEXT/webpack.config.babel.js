@@ -10,22 +10,21 @@ let entry = {};
 fs.readdirSync(targetDir).forEach( file => {
     entry[file.replace(/\.jsx?$/, '')] = path.join(targetDir, file);
 });
-console.log(entry)
 let webpackConfig = {
     entry: entry,
     output: {
-        path: path.resolve(_rootName, 'dist'),
+        path: path.resolve(_rootName, 'dist/js'),
+        //filename: 'bundle.js?v=[chunkhash]',
         filename: '[name].js?v=[chunkhash]',
-        publicPath: 'dist'
+        publicPath: '/dist/js/'
     },
     plugins: [
-        //new webpack.optimize.CommonsChunkPlugin(),
         new ExtractTextPlugin('styles.css'),
         new HtmlWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: 'async.html',
-            filename: 'async.html',
-            chunks: Object.keys(entry),
+            template: 'template/async.html',
+            filename: '../async.html',
+            chunks: '*',
             inject: 'body'
         })
     ],
@@ -35,8 +34,8 @@ let webpackConfig = {
             exclude: [node_modules],
             loader: 'babel-loader',
             query: {
-                plugins: ['transform-runtime'],
-                presets: ['es2015', 'stage-0', 'react']
+                //presets: ['es2015', 'stage-0'],
+                //plugins: ['transform-runtime']
             }
         }, {
             test: /\.css$/,

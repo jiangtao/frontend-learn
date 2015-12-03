@@ -1,8 +1,8 @@
 /**
  * Created by jiangtao on 11/26/15.
  */
-import 'babel-polyfill';
-console.log(async)
+require("babel-core/register");
+
 async function sleep(timeout) {
     return new Promise((resolve, reject) => {
         setTimeout(function () {

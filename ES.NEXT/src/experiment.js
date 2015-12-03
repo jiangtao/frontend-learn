@@ -1,4 +1,4 @@
-var arr = [1,2,3];
+let arr = [1,2,3];
 
 arr.map((v, idx) => v +1 )// 使用 => 代替方法
 arr.sort((a,b) => a - b)
@@ -9,7 +9,7 @@ arr.forEach(v => {
 });
 arr.reduce(v => v);
 /*
-var object = {
+let object = {
 	name: 'jiangtao',
 	age: 25,
 	friends: ['zhangsan', 'lisi', 'wangwu'],
@@ -19,28 +19,29 @@ var object = {
 }
 */
 // template String
-var name = 'jiangtao';
-var age = 10;
-var str = `hello ${name}`; // 使用``做字符串代替传统的字符串相加
-var object = `
+let name = 'jiangtao';
+let age = 10;
+let str = `hello ${name}`; // 使用``做字符串代替传统的字符串相加
+let object = `
 	name: 'jiangtao'
 	age: ${age}
-`; 
+`;
 
 // 变量赋值
-var [a,b,c = 1] = ['a', 'b', 'c']
-var {name: name, age: age, info: {sex: sex}} = getUserInfo()
-// 函数内部变量设置 
+let [a,b,c = 1] = ['a', 'b', 'c']
+let getUserInfo = data => data;
+let {name: nickName, age: nickAge, info: {sex: sex}} = getUserInfo()
+// 函数内部变量设置
 // XXX: 当想Fn返回info的时候 报错
-var fn = ( ({info: _info} ) => 
-	console.log(info)) 
+let fn = ( ({info: _info} ) =>
+	console.log(info))
 
-var func = function(a,b=10){
+let func = function(a,b=10){
 	return a + b
 }
 // 参数传递
 // 默认参数设置初始值
-var funcTest = (a,b=10) => a+b
-var funcMoreAguments = (x, ...y) => x * y.length
+let funcTest = (a,b=10) => a+b
+let funcMoreAguments = (x, ...y) => x * y.length
 // 传递个数组来作为参数
-var funcArrayArgs = (a, b) => b.concat(a)
+let funcArrayArgs = (a, b) => b.concat(a)
