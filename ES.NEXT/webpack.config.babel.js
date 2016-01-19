@@ -4,7 +4,6 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import fs from 'fs';
 const node_modules = path.resolve(__dirname, 'node_modules');
-const _rootName    = __dirname;
 const targetDir    = path.resolve(__dirname, './src');
 let entry = {};
 fs.readdirSync(targetDir).forEach( file => {
@@ -13,7 +12,7 @@ fs.readdirSync(targetDir).forEach( file => {
 let webpackConfig = {
     entry: entry,
     output: {
-        path: path.resolve(_rootName, 'dist/js'),
+        path: path.resolve(__dirname, 'dist/js'),
         //filename: 'bundle.js?v=[chunkhash]',
         filename: '[name].js?v=[chunkhash]',
         publicPath: '/dist/js/'
