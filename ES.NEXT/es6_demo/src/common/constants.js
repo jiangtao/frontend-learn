@@ -2,7 +2,6 @@
  *
  * Created by jiangtao on 1/19/16.
  */
-
 import util from 'util';
 const freeze = (obj) => {
     Object.freeze(obj);
