@@ -7,6 +7,8 @@ var REDUCE      = Array.prototype.reduce;
 var REDUCERIGHT = Array.prototype.reduceRight;
 var LASTINDEXOF = Array.prototype.lastindexof;
 var INDEXOF     = Array.prototype.indexof;
+var FIND        = Array.prototype.find;
+var FINDINDEX   = Array.prototype.findindex;
 
 if (!FOREACH) {
     Array.prototype.foreach = function (fn, context) {
@@ -119,5 +121,38 @@ if (!LASTINDEXOF) {
                 return i;
         }
         return -1;
+    }
+}
+
+if(!FIND){
+    Array.prototype.find = function (fn, context) {
+        var len = this.length,
+            i = 0,
+            item,
+            result
+
+        for(;i < len; i++){
+            item = this[i]
+            if(fn(item, i, this)){
+                return item
+            }
+        }
+        return undefined
+    }
+}
+if(!FINDINDEX){
+    Array.prototype.findIndex = function (fn, context) {
+        var len = this.length,
+            i = 0,
+            item,
+            result
+
+        for(;i < len; i++){
+            item = this[i]
+            if(fn(item, i, this)){
+                return i
+            }
+        }
+        return -1
     }
 }
