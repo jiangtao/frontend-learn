@@ -1,3 +1,9 @@
 safety
 html5
 .vscode
+.idea
+dist
+Test
+angular
+xml-validator
+grunt
