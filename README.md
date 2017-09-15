@@ -1,4 +1,2 @@
 ---
-此`repo`记录前端发展学习的一些代码片段
-
-博文记录移步[博客](https://www.imjiangtao.com/)
+此`repo`记录不再维护，请移步[博客](https://github.com/jiangtao/blog)
